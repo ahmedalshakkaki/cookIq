@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:cookiq/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 
+import 'example.dart';
 import 'mealScreen.dart';
 
 class homePage extends StatelessWidget {
@@ -53,19 +58,27 @@ class homePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: kMainPaddingH, vertical: 10),
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(kContainerBorderRadius)),
-            child: Container(
-              height: size.height * 0.25,
-              decoration: BoxDecoration(
-                  color: Colors.blueAccent.shade200,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Wheel();
+              }));
+            },
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(kContainerBorderRadius)),
-              child: Center(
-                child: Text(
-                  'Lunch',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+              child: Container(
+                height: size.height * 0.25,
+                decoration: BoxDecoration(
+                    color: Colors.blueAccent.shade200,
+                    borderRadius:
+                        BorderRadius.circular(kContainerBorderRadius)),
+                child: Center(
+                  child: Text(
+                    'Lunch',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
               ),
             ),
@@ -93,6 +106,81 @@ class homePage extends StatelessWidget {
           ),
         ),
       ]),
+    );
+  }
+}
+
+class Wheel extends StatefulWidget {
+  Wheel({Key? key}) : super(key: key);
+
+  @override
+  State<Wheel> createState() => _WheelState();
+}
+
+class _WheelState extends State<Wheel> {
+  StreamController<int> selected = StreamController<int>();
+  @override
+  void dispose() {
+    selected.close();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final list = <String>[
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'a',
+      'b',
+      'c',
+    ];
+
+    return Scaffold(
+      body: Container(
+        height: 500,
+        width: 500,
+        child: GestureDetector(
+          onTap: (() {
+            setState(() {
+              selected.add(Random().nextInt(list.length));
+            });
+          }),
+          child: Column(
+            children: [
+              Expanded(
+                  child: FortuneWheel(
+                items: [
+                  for (var items in list) FortuneItem(child: Text(items))
+                ],
+                selected: selected.stream,
+              ))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
