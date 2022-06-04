@@ -13,7 +13,7 @@ class MealScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -38,13 +38,32 @@ class MealScreen extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Row(children: [
-                  Container(
-                    height: size.height * 0.2,
-                    width: size.width * 0.3,
-                    color: Colors.red.shade400,
-                  )
-                ]),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: size.height * 0.2,
+                        width: size.width * 0.3,
+                        color: Colors.red.shade400,
+                      ),
+                      Container(
+                        width: size.width * 0.5,
+                        height: size.height * 0.2,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'Lorem Ipsum',
+                                ),
+                                Text(
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In suscipit nibh et varius semper. Curabitur eget metus nec tellus elementum pellentesque. Proin lobortis ex eget elit pulvinar, nec rutrum lectus fringilla. Aliquam et auctor mi.')
+                              ]),
+                        ),
+                      )
+                    ]),
               ),
             ),
           )
