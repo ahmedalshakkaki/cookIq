@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cookiq/constants.dart';
-import 'package:cookiq/example.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+
+import 'details.dart';
 
 class MealScreen extends StatelessWidget {
   const MealScreen({Key? key}) : super(key: key);
@@ -145,8 +147,8 @@ class _WheelState extends State<Wheel> {
   @override
   Widget build(BuildContext context) {
     final list = <String>[
-      'a',
-      'b',
+      'باكله ',
+      'دولمه',
       'c',
       'd',
       'e',
@@ -185,7 +187,19 @@ class _WheelState extends State<Wheel> {
                 for (var items in list)
                   FortuneItem(
                     child: GestureDetector(
-                        onTap: () => print('items'), child: Text(items)),
+                        onTap: () {
+                          print(items);
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Details()));
+                        },
+                        child: Container(
+                            height: 100,
+                            width: 100,
+                            color: Colors.transparent,
+                            child: Center(child: Text(items)))),
                     // style: FortuneItemStyle(
                     //   color: Colors.red, // <-- custom circle slice fill color
                     //   borderColor: Color.fromARGB(160, 0, 200,
