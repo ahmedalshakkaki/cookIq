@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'dart:math';
 
 import 'package:cookiq/constants.dart';
@@ -16,6 +17,13 @@ class MealScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print('object'),
+        child: Icon(
+          Icons.food_bank,
+          size: 30,
+        ),
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -35,7 +43,12 @@ class MealScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kMainPaddingH),
-        child: ListView(children: [TodayMeal(size: size), Wheel()]),
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, int) {
+            return TodayMeal(size: size);
+          },
+        ),
       ),
     );
   }
@@ -52,9 +65,9 @@ class TodayMeal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: kMainPaddingH),
+      padding: const EdgeInsets.only(top: kMainPaddingH),
       child: Card(
-        elevation: 1,
+        elevation: 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kContainerBorderRadius)),
         child: InkWell(
@@ -66,7 +79,7 @@ class TodayMeal extends StatelessWidget {
                 color: Colors.grey.shade50,
                 borderRadius: BorderRadius.circular(kContainerBorderRadius)),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(12.0),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -74,11 +87,18 @@ class TodayMeal extends StatelessWidget {
                       height: size.height * 0.2,
                       width: size.width * 0.3,
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(kContainerBorderRadius)),
-                      child: Image.network(
-                        'https://picsum.photos/1800',
-                        fit: BoxFit.fill,
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.circular(kContainerBorderRadius),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              // "${newsData['articles'][index1]['urlToImage'].toString()}"),
+                              // widget.imageUrl
+
+                              'https://picsum.photos/1800'),
+                          fit: BoxFit.fill,
+                          alignment: Alignment.topCenter,
+                        ),
                       ),
                     ),
                     Container(
